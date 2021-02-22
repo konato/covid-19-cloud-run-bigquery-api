@@ -35,6 +35,12 @@ app.get('/', async (req, res, next) => {
   }
 });
 
+app.get('/version', async (req, res) => {
+  res.send({
+    version_hash: process.env.VERSION_HASH,
+  });
+});
+
 app.get('/:countryCode', async (req, res, next) => {
   const countryCode = req.params.countryCode;
   const from = req.query.from ? req.query.from : null;
