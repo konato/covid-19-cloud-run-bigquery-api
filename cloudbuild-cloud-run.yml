@@ -7,7 +7,7 @@ steps:
     args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
   # Set Build Date Time for cloud functions
-  - name: 'gcr.io/konversusalpha/firebase'
+  - name: 'gcr.io/cloud-builders/docker'
     entrypoint: bash
     args: 
       - '-c'
@@ -18,7 +18,7 @@ steps:
         echo Build Time :  $$_BUILD_DATETIME
 
   # Set Tag 
-    - name: 'gcr.io/konversusalpha/firebase'
+    - name: 'gcr.io/cloud-builders/docker'
       entrypoint: bash
       args: 
         - '-c'
