@@ -16,6 +16,7 @@ steps:
         echo $(date +"%Y-%m-%d %T") 
         export _BUILD_DATETIME=$(date +"%Y-%m-%d %T")
         echo Build Time :  $$_BUILD_DATETIME
+        echo $$_BUILD_DATETIME >/workspace/build_datetime.txt
 
   # Set Tag 
   - name: 'gcr.io/cloud-builders/gcloud'
@@ -41,5 +42,5 @@ steps:
         "managed",
         "--allow-unauthenticated",
         "--update-env-vars", 
-        "VERSION_HASH=${SHORT_SHA},BUILD_DATETIME=${_BUILD_DATETIME},VERSION_TAG=${_VERSION_TAG}"
+        "VERSION_HASH=${SHORT_SHA},BUILD_DATETIME=$(cat /workspace/build_datetime.txt),VERSION_TAG=${_VERSION_TAG}"
       ]
