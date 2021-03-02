@@ -18,13 +18,13 @@ steps:
         echo Build Time :  $$_BUILD_DATETIME
 
   # Set Tag 
-    - name: 'gcr.io/cloud-builders/gcloud'
-      entrypoint: bash
-      args: 
-        - '-c'
-        - |
-          export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag")
-          echo VERSION_TAG : $$_VERSION_TAG
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args: 
+      - '-c'
+      - |
+        export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag")
+        echo VERSION_TAG : $$_VERSION_TAG
 
   - name: "gcr.io/cloud-builders/gcloud"
     args:
