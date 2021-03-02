@@ -6,6 +6,26 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
+  # Set Build Date Time for cloud functions
+  - name: 'gcr.io/konversusalpha/firebase'
+    entrypoint: bash
+    args: 
+      - '-c'
+      - |
+        echo functions adding build date  
+        echo $(date +"%Y-%m-%d %T") 
+        export _BUILD_DATETIME=$(date +"%Y-%m-%d %T")
+        echo Build Time :  $$_BUILD_DATETIME
+
+  # Set Tag 
+    - name: 'gcr.io/konversusalpha/firebase'
+      entrypoint: bash
+      args: 
+        - '-c'
+        - |
+          export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag")
+          echo VERSION_TAG : $$_VERSION_TAG
+
   - name: "gcr.io/cloud-builders/gcloud"
     args:
       [
@@ -20,5 +40,5 @@ steps:
         "managed",
         "--allow-unauthenticated",
         "--update-env-vars", 
-        "VERSION_HASH=${SHORT_SHA}"
+        "VERSION_HASH=${SHORT_SHA},BUILD_DATETIME=${_BUILD_DATETIME},VERSION_TAG=${_VERSION_TAG}"
       ]
