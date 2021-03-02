@@ -37,7 +37,7 @@ app.get('/', async (req, res, next) => {
 
 app.get('/version', async (req, res) => {
   res.send({
-    version_tag : process.env.VERSION_TAG,
+    version_tag: process.env.VERSION_TAG,
     version_hash: process.env.VERSION_HASH,
     build_datetime: process.env.BUILD_DATETIME,
   });
