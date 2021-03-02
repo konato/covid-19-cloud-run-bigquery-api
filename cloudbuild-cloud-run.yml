@@ -21,4 +21,4 @@ steps:
         --platform managed \
         --allow-unauthenticated \
         --update-env-vars \
-        VERSION_HASH=${SHORT_SHA},BUILD_DATETIME="${_BUILD_DATETIME}",VERSION_TAG="${_VERSION_TAG}"
+        VERSION_HASH=${SHORT_SHA},BUILD_DATETIME="$$_BUILD_DATETIME",VERSION_TAG="$$_VERSION_TAG"
