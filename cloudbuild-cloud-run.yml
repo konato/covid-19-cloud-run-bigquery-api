@@ -11,10 +11,10 @@ steps:
     args: 
       - '-c'
       - |
-        export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag") &&
-        echo VERSION_TAG : $$_VERSION_TAG &&
-        export _BUILD_DATETIME=$(date +"%Y-%m-%d %T") &&
-        echo Build Time :  $$_BUILD_DATETIME &&
+        export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag")
+        echo VERSION_TAG : $$_VERSION_TAG
+        export _BUILD_DATETIME=$(date +"%Y-%m-%d %T")
+        echo Build Time :  $$_BUILD_DATETIME
         gcloud run deploy ${_SERVICE_NAME} \
         --image gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA} \
         --region us-central1 \
