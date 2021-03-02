@@ -6,19 +6,19 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
 
-  # Set Build Date Time for cloud functions
-  - name: 'gcr.io/cloud-builders/docker'
+  # Set Build Date Time for cloud run service
+  - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: bash
     args: 
       - '-c'
       - |
-        echo functions adding build date  
+        echo Adding build date  
         echo $(date +"%Y-%m-%d %T") 
         export _BUILD_DATETIME=$(date +"%Y-%m-%d %T")
         echo Build Time :  $$_BUILD_DATETIME
 
   # Set Tag 
-    - name: 'gcr.io/cloud-builders/docker'
+    - name: 'gcr.io/cloud-builders/gcloud'
       entrypoint: bash
       args: 
         - '-c'
