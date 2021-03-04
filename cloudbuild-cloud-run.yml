@@ -1,11 +1,11 @@
 steps:
-  
+  # Build the image
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA}", "."]
-  
+  # Push the image 
   - name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/${_SERVICE_NAME}"]
-
+  # Insert tag, build date time and deploy the image on Cloud Run
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: bash
     args: 
@@ -14,7 +14,7 @@ steps:
         export _VERSION_TAG=$([ -z "$TAG_NAME" ] && echo "No Tag")
         echo VERSION_TAG : $$_VERSION_TAG
         export _BUILD_DATETIME=$(date +"%Y-%m-%d %T")
-        echo Build Time :  $$_BUILD_DATETIME
+        echo Build Date and Time :  $$_BUILD_DATETIME
         gcloud run deploy ${_SERVICE_NAME} \
         --image gcr.io/$PROJECT_ID/${_SERVICE_NAME}:${SHORT_SHA} \
         --region us-central1 \
